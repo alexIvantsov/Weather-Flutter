@@ -1,7 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-import 'package:weather/presentation/current_weather/current_weather_screen.dart';
+import 'package:weather/presentation/city_weather/city_weather_screen.dart';
 
 part 'app_router_delegate_provider.dart';
 

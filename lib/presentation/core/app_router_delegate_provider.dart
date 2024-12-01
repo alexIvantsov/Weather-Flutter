@@ -28,7 +28,7 @@ class _AppRouterDelegateProviderImpl implements AppRouterDelegateProvider {
   final _routerDelegate = BeamerDelegate(
     locationBuilder: RoutesLocationBuilder(
       routes: {
-        '/': (context, state, data) => const CurrentWeatherScreen(),
+        '/': (context, state, data) => const CityWeatherScreen(),
       },
     ).call,
   );
