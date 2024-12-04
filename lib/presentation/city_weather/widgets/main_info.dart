@@ -12,6 +12,7 @@ class MainInfo extends StatelessWidget {
   final String maxTemperature;
 
   const MainInfo({
+    super.key,
     required this.measurementUnit,
     required this.temperature,
     required this.feelsLikeTemperature,
@@ -40,7 +41,7 @@ class MainInfo extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.sunny),
+                      const Icon(Icons.sunny),
                       const SizedBox(width: 8),
                       Text(description),
                     ],

@@ -46,6 +46,7 @@ class CityWeatherView extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
             return const WeatherWidget(
+              cityName: "Kyiv",
               weatherUiModel: WeatherUiModel(
                 measurementUnit: MeasurementUnit.metric,
                 temperature: '27°',
