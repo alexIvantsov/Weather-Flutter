@@ -10,4 +10,17 @@ class Formatter {
     final numberFormat = NumberFormat('0.#');
     return '${numberFormat.format(temperature)}°';
   }
+
+  String formatPressure(int pressure) {
+    return pressure.toString();
+  }
+
+  String formatPercentage(num percentage) {
+    return '$percentage%';
+  }
+
+  String formatSpeed(double speed) {
+    final numberFormat = NumberFormat('0.#');
+    return numberFormat.format(speed);
+  }
 }

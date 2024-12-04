@@ -27,22 +27,22 @@ class WeatherUiModel with _$WeatherUiModel {
     required String temperatureFeelsLike,
     required String minTemperature,
     required String maxTemperature,
-    required int pressure,
-    required int humidity,
+    required String pressure,
+    required String humidity,
     required String weatherCondition,
     required String weatherConditionDescription,
-    required int cloudiness,
+    required String cloudiness,
     required WindUiModel wind,
     required int visibility,
-    required int precipitationProbability,
+    required String precipitationProbability,
   }) = _WeatherUiModel;
 }
 
 @freezed
 class WindUiModel with _$WindUiModel {
   const factory WindUiModel({
-    required double speed,
+    required String speed,
     required int direction,
-    required double gust,
+    required String gust,
   }) = _WindUiModel;
 }

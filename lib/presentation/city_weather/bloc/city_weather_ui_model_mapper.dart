@@ -7,6 +7,8 @@ import 'package:weather/presentation/formatters/formatter.dart';
 class CityWeatherUiModelMapper {
   WeatherUiModel mapWeatherToUiModel(WeatherForecast weather) {
     final formatter = Formatter(weather.measurementUnit);
+    final precipitationProbability =
+        (weather.precipitationProbability * 100).round();
     return WeatherUiModel(
       measurementUnit: weather.measurementUnit,
       temperature: formatter.formatTemperature(weather.temperature),
@@ -14,19 +16,19 @@ class CityWeatherUiModelMapper {
           formatter.formatTemperature(weather.temperatureFeelsLike),
       minTemperature: formatter.formatTemperature(weather.minTemperature),
       maxTemperature: formatter.formatTemperature(weather.maxTemperature),
-      pressure: weather.pressure,
-      humidity: weather.humidity,
+      pressure: formatter.formatPressure(weather.pressure),
+      humidity: formatter.formatPercentage(weather.humidity),
       weatherCondition: weather.weatherCondition,
       weatherConditionDescription: weather.weatherConditionDescription,
-      cloudiness: weather.cloudiness,
+      cloudiness: formatter.formatPercentage(weather.cloudiness),
       wind: WindUiModel(
-        speed: weather.wind.speed,
+        speed: formatter.formatSpeed(weather.wind.speed),
         direction: weather.wind.direction,
-        gust: weather.wind.gust,
+        gust: formatter.formatSpeed(weather.wind.gust),
       ),
       visibility: weather.visibility,
       precipitationProbability:
-          (weather.precipitationProbability * 100).round(),
+          formatter.formatPercentage(precipitationProbability),
     );
   }
 }

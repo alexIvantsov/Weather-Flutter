@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/presentation/city_weather/bloc/city_weather_bloc.dart';
+import 'package:weather/presentation/city_weather/widgets/additional_parameters.dart';
 import 'package:weather/presentation/city_weather/widgets/main_info.dart';
 import 'package:weather/presentation/enter_city/search_field.dart';
 
@@ -32,6 +33,12 @@ class WeatherWidget extends StatelessWidget {
             feelsLikeTemperature: weatherUiModel.temperatureFeelsLike,
             minTemperature: weatherUiModel.minTemperature,
             maxTemperature: weatherUiModel.maxTemperature,
+          ),
+          const SizedBox(height: 16),
+          AdditionalParameters(
+            pressure: weatherUiModel.pressure.toString(),
+            humidity: weatherUiModel.humidity.toString(),
+            cloudiness: weatherUiModel.cloudiness.toString(),
           ),
         ],
       ),
