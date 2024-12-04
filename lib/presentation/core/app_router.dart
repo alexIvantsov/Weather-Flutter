@@ -1,9 +1,11 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather/presentation/city_weather/city_weather_screen.dart';
+import 'package:weather/presentation/enter_city/enter_city_screen.dart';
 
-part 'app_router_delegate_provider.dart';
+part 'app_router_config_provider.dart';
 
 /// Provider to provide [AppRouter] to the widget tree
 class AppRouterProvider extends InheritedWidget {
@@ -30,27 +32,34 @@ class AppRouterProvider extends InheritedWidget {
 
 /// Wraps the router actions to not to depend on particular router implementation
 abstract class AppRouter {
-  factory AppRouter(AppRouterDelegateProvider appRouterDelegate) {
-    return _AppRouterImpl(appRouterDelegate);
+  factory AppRouter(AppRouterConfigProvider appRouterDelegate) {
+    return _GoRouterAppRouterImpl(appRouterDelegate);
   }
 
   void pushNamed(String routeName);
 
+  void pushReplacementNamed(String routeName);
+
   void pop();
 }
 
-class _AppRouterImpl implements AppRouter {
-  final AppRouterDelegateProvider _appRouterDelegate;
+class _GoRouterAppRouterImpl implements AppRouter {
+  final AppRouterConfigProvider _appRouterDelegate;
 
-  const _AppRouterImpl(this._appRouterDelegate);
+  const _GoRouterAppRouterImpl(this._appRouterDelegate);
 
   @override
   void pushNamed(String routeName) {
-    _appRouterDelegate._beamerDelegate.beamToNamed(routeName);
+    _appRouterDelegate._goRouter.push(routeName);
+  }
+
+  @override
+  void pushReplacementNamed(String routeName) {
+    _appRouterDelegate._goRouter.pushReplacement(routeName);
   }
 
   @override
   void pop() {
-    _appRouterDelegate._beamerDelegate.beamBack();
+    _appRouterDelegate._goRouter.pop();
   }
 }
