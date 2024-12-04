@@ -16,6 +16,9 @@ class WeatherForecast {
   /// The unit of measurement is determined by the [measurementUnit] parameter.
   final double temperatureFeelsLike;
 
+  final double minTemperature;
+  final double maxTemperature;
+
   /// Atmospheric pressure on the sea level in hPa.
   final int pressure;
 
@@ -24,6 +27,9 @@ class WeatherForecast {
 
   /// The weather condition like Rain, Snow, Clouds etc.
   final String weatherCondition;
+
+  /// The weather condition description like light rain, heavy snow etc.
+  final String weatherConditionDescription;
 
   /// The cloudiness in percentage.
   final int cloudiness;
@@ -45,9 +51,12 @@ class WeatherForecast {
     required this.measurementUnit,
     required this.temperature,
     required this.temperatureFeelsLike,
+    required this.minTemperature,
+    required this.maxTemperature,
     required this.pressure,
     required this.humidity,
     required this.weatherCondition,
+    required this.weatherConditionDescription,
     required this.cloudiness,
     required this.wind,
     required this.visibility,

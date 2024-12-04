@@ -1,5 +1,29 @@
 {
   "@@locale": "en",
   "enterCityName": "Enter city name",
-  "search": "Search"
+  "search": "Search",
+  "feelsLike": "Feels like {temp}",
+  "@feelsLike": {
+    "placeholders": {
+      "temp": {
+        "type": "String"
+      }
+    }
+  },
+  "min": "Min: {temp}",
+  "@min": {
+    "placeholders": {
+      "temp": {
+        "type": "String"
+      }
+    }
+  },
+  "max": "Max: {temp}",
+  "@max": {
+    "placeholders": {
+      "temp": {
+        "type": "String"
+      }
+    }
+  }
 }

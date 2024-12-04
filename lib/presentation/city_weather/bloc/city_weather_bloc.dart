@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:weather/core/tools.dart';
 import 'package:weather/domain/entity/measurement_unit.dart';
 import 'package:weather/domain/use_cases/get_saved_city_use_case.dart';
@@ -10,6 +11,7 @@ part 'city_weather_bloc.freezed.dart';
 part 'city_weather_event.dart';
 part 'city_weather_state.dart';
 
+@injectable
 class CityWeatherBloc extends Bloc<CityWeatherEvent, CityWeatherState> {
   final GetSavedCityUseCase _getSavedCityUseCase;
   final GetWeatherForecastUseCase _getWeatherUseCase;
@@ -47,7 +49,10 @@ class CityWeatherBloc extends Bloc<CityWeatherEvent, CityWeatherState> {
     String city,
     Emitter<CityWeatherState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(
+      city: city,
+      isLoading: true,
+    ));
     final weather = await _getWeatherUseCase.invoke(city);
     final weatherUiModel = _mapper.mapWeatherToUiModel(weather);
     emit(state.copyWith(

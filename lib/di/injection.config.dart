@@ -20,6 +20,10 @@ import 'package:weather/domain/repositories/weather_forecast_repository.dart'
 import 'package:weather/domain/use_cases/get_saved_city_use_case.dart' as _i54;
 import 'package:weather/domain/use_cases/get_weather_forecaset_use_case.dart'
     as _i170;
+import 'package:weather/presentation/city_weather/bloc/city_weather_bloc.dart'
+    as _i747;
+import 'package:weather/presentation/city_weather/bloc/city_weather_ui_model_mapper.dart'
+    as _i556;
 import 'package:weather/presentation/core/app_router.dart' as _i416;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -33,8 +37,10 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.factory<_i416.AppRouterDelegateProvider>(
-        () => _i416.AppRouterDelegateProvider());
+    gh.factory<_i416.AppRouterConfigProvider>(
+        () => _i416.AppRouterConfigProvider());
+    gh.factory<_i556.CityWeatherUiModelMapper>(
+        () => _i556.CityWeatherUiModelMapper());
     gh.factory<_i281.SettingsRepository>(() => _i209.SettingsRepositoryImpl());
     gh.factory<_i602.WeatherForecastRepository>(
         () => _i447.WeatherForecastRepositoryImpl());
@@ -45,6 +51,11 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i602.WeatherForecastRepository>(),
               gh<_i281.SettingsRepository>(),
             ));
+    gh.factory<_i747.CityWeatherBloc>(() => _i747.CityWeatherBloc(
+          gh<_i54.GetSavedCityUseCase>(),
+          gh<_i170.GetWeatherForecastUseCase>(),
+          gh<_i556.CityWeatherUiModelMapper>(),
+        ));
     return this;
   }
 }

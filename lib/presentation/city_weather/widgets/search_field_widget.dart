@@ -18,9 +18,21 @@ class SearchFieldWidget extends StatefulWidget {
 class _SearchFieldWidgetState extends State<SearchFieldWidget> {
   final controller = TextEditingController();
 
+  bool isButtonEnabled = false;
+
   @override
   void initState() {
     controller.text = widget.value;
+    isButtonEnabled = widget.value.isNotEmpty;
+
+    controller.addListener(() {
+      final isButtonEnabled = controller.text.isNotEmpty;
+      if (this.isButtonEnabled != isButtonEnabled) {
+        setState(() {
+          this.isButtonEnabled = isButtonEnabled;
+        });
+      }
+    });
     super.initState();
   }
 
@@ -29,6 +41,7 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value) {
       controller.text = widget.value;
+      isButtonEnabled = widget.value.isNotEmpty;
     }
   }
 
@@ -57,7 +70,7 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
         minimumSize: const Size(0, 48),
         padding: const EdgeInsets.symmetric(horizontal: 12),
       ),
-      onPressed: onSubmitted,
+      onPressed: isButtonEnabled ? onSubmitted : null,
       child: Text(context.localizations.search),
     );
 

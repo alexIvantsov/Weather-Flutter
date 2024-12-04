@@ -23,11 +23,14 @@ class CityWeatherState with _$CityWeatherState {
 class WeatherUiModel with _$WeatherUiModel {
   const factory WeatherUiModel({
     required MeasurementUnit measurementUnit,
-    required int temperature,
-    required int temperatureFeelsLike,
+    required String temperature,
+    required String temperatureFeelsLike,
+    required String minTemperature,
+    required String maxTemperature,
     required int pressure,
     required int humidity,
     required String weatherCondition,
+    required String weatherConditionDescription,
     required int cloudiness,
     required WindUiModel wind,
     required int visibility,
