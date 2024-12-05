@@ -39,7 +39,7 @@ class _SearchFieldState extends State<SearchField> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: context.theme.colorScheme.secondaryContainer,
+        color: context.theme.colorScheme.tertiaryContainer,
         borderRadius: BorderRadius.circular(24),
       ),
       child: TextField(

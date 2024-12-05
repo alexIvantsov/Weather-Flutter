@@ -33,7 +33,7 @@ class WeatherUiModel with _$WeatherUiModel {
     required String weatherConditionDescription,
     required String cloudiness,
     required WindUiModel wind,
-    required int visibility,
+    required String visibility,
     required String precipitationProbability,
   }) = _WeatherUiModel;
 }
@@ -42,7 +42,7 @@ class WeatherUiModel with _$WeatherUiModel {
 class WindUiModel with _$WindUiModel {
   const factory WindUiModel({
     required String speed,
-    required int direction,
+    required double radianDirection,
     required String gust,
   }) = _WindUiModel;
 }

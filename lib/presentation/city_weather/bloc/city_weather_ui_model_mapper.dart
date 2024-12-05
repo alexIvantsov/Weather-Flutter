@@ -23,10 +23,10 @@ class CityWeatherUiModelMapper {
       cloudiness: formatter.formatPercentage(weather.cloudiness),
       wind: WindUiModel(
         speed: formatter.formatSpeed(weather.wind.speed),
-        direction: weather.wind.direction,
+        radianDirection: weather.wind.radiansDirection(),
         gust: formatter.formatSpeed(weather.wind.gust),
       ),
-      visibility: weather.visibility,
+      visibility: weather.visibility.toString(),
       precipitationProbability:
           formatter.formatPercentage(precipitationProbability),
     );

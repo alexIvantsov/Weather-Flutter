@@ -26,5 +26,43 @@
       }
     }
   },
-  "enterCityToSeeWeather": "Enter city to see the weather"
+  "enterCityToSeeWeather": "Enter city to see the weather",
+  "pressure": "Pressure",
+  "humidity": "Humidity",
+  "cloudiness": "Cloudiness",
+  "wind": "Wind",
+  "visibility": "Visibility",
+  "precipitationProbability": "Precipitation probability",
+  "gustValue": "Gust: {value}m/s",
+  "@gustValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "speedValue": "{value}m/s",
+  "@speedValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "pressureValue": "{value}hPa",
+  "@pressureValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "distanceValue": "{value}m",
+  "@distanceValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  }
 }

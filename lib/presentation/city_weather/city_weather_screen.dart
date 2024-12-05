@@ -60,10 +60,10 @@ class CityWeatherView extends StatelessWidget {
                 cloudiness: '0%',
                 wind: WindUiModel(
                   speed: '10',
-                  direction: 90,
+                  radianDirection: 90,
                   gust: '15',
                 ),
-                visibility: 100,
+                visibility: '100',
                 precipitationProbability: '0%',
               ),
             );
