@@ -41,3 +41,13 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+lib/variables.dart
+
+# Generated files
+untranslated-strings.txt
+*.config.dart
+*.g.dart
+*.freezed.dart
+*.gen.dart
+*.mocks.dart

@@ -23,7 +23,7 @@ class CityWeatherBloc extends Bloc<CityWeatherEvent, CityWeatherState> {
     this._mapper,
   ) : super(CityWeatherState.initial()) {
     on<CityWeatherEvent>((event, emit) async {
-      runCatching(
+      await runCatching(
         action: () => event.when(
           init: () => _onInit(emit),
           fetchWeather: (city) => _fetchWeather(city, emit),
@@ -38,7 +38,7 @@ class CityWeatherBloc extends Bloc<CityWeatherEvent, CityWeatherState> {
   Future<void> _onInit(Emitter<CityWeatherState> emit) async {
     emit(state.copyWith(isLoading: true));
     final savedCity = await _getSavedCityUseCase.invoke();
-    if (savedCity == null) {
+    if (savedCity == null || savedCity.isEmpty) {
       emit(state.copyWith(isLoading: false));
     } else {
       return _fetchWeather(savedCity, emit);

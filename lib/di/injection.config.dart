@@ -14,6 +14,8 @@ import 'package:weather/data_source/local_data_source/settings_repository_impl.d
     as _i209;
 import 'package:weather/data_source/remote_data_source/weather_forecast_repository_impl.dart'
     as _i447;
+import 'package:weather/data_source/remote_data_source/weather_mapper.dart'
+    as _i935;
 import 'package:weather/domain/repositories/settings_repository.dart' as _i281;
 import 'package:weather/domain/repositories/weather_forecast_repository.dart'
     as _i602;
@@ -41,11 +43,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i416.AppRouterConfigProvider());
     gh.factory<_i556.CityWeatherUiModelMapper>(
         () => _i556.CityWeatherUiModelMapper());
+    gh.lazySingleton<_i935.WeatherMapper>(() => _i935.WeatherMapper());
     gh.factory<_i281.SettingsRepository>(() => _i209.SettingsRepositoryImpl());
-    gh.factory<_i602.WeatherForecastRepository>(
-        () => _i447.WeatherForecastRepositoryImpl());
     gh.factory<_i54.GetSavedCityUseCase>(
         () => _i54.GetSavedCityUseCase(gh<_i281.SettingsRepository>()));
+    gh.factory<_i602.WeatherForecastRepository>(
+        () => _i447.WeatherForecastRepositoryImpl(gh<_i935.WeatherMapper>()));
     gh.factory<_i170.GetWeatherForecastUseCase>(
         () => _i170.GetWeatherForecastUseCase(
               gh<_i602.WeatherForecastRepository>(),
