@@ -76,7 +76,7 @@ class _EnterCityScreenState extends State<EnterCityScreen> {
   }
 
   void onSubmitted() {
-    context.appRouter.pushReplacementNamed('/city_weather/${controller.text}');
+    context.appRouter.replaceAllNamed('/city_weather/${controller.text}');
   }
 
   @override

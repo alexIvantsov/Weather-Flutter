@@ -6,25 +6,48 @@ import 'package:weather/domain/entity/measurement_unit.dart';
 import 'package:weather/presentation/city_weather/bloc/city_weather_bloc.dart';
 import 'package:weather/presentation/city_weather/widgets/weather_widget.dart';
 
-class CityWeatherScreen extends StatelessWidget {
+class CityWeatherScreen extends StatefulWidget {
   final String? city;
 
   const CityWeatherScreen({super.key, this.city});
 
   @override
+  State<CityWeatherScreen> createState() => _CityWeatherScreenState();
+}
+
+class _CityWeatherScreenState extends State<CityWeatherScreen> {
+  final bloc = getIt<CityWeatherBloc>();
+
+  @override
+  void initState() {
+    if (widget.city == null) {
+      bloc.add(const CityWeatherEvent.init());
+    } else {
+      bloc.add(CityWeatherEvent.fetchWeather(widget.city!));
+    }
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant CityWeatherScreen oldWidget) {
+    if (bloc.state.city != widget.city && widget.city != null) {
+      bloc.add(CityWeatherEvent.fetchWeather(widget.city!));
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        final bloc = getIt<CityWeatherBloc>();
-        if (city == null) {
-          bloc.add(const CityWeatherEvent.init());
-        } else {
-          bloc.add(CityWeatherEvent.fetchWeather(city!));
-        }
-        return bloc;
-      },
+    return BlocProvider.value(
+      value: bloc,
       child: const CityWeatherView(),
     );
+  }
+
+  @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
   }
 }
 
@@ -45,9 +68,13 @@ class CityWeatherView extends StatelessWidget {
             if (state.isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
-            return const WeatherWidget(
-              cityName: "Kyiv",
-              weatherUiModel: WeatherUiModel(
+            final city = state.city;
+            if (city == null) {
+              return const SizedBox.shrink();
+            }
+            return WeatherWidget(
+              cityName: city,
+              weatherUiModel: const WeatherUiModel(
                 measurementUnit: MeasurementUnit.metric,
                 temperature: '27°',
                 temperatureFeelsLike: '25°',

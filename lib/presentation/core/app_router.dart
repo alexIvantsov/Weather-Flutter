@@ -38,6 +38,8 @@ abstract class AppRouter {
 
   void pushNamed(String routeName);
 
+  void replaceAllNamed(String routeName);
+
   void pushReplacementNamed(String routeName);
 
   void pop();
@@ -51,6 +53,11 @@ class _GoRouterAppRouterImpl implements AppRouter {
   @override
   void pushNamed(String routeName) {
     _appRouterDelegate._goRouter.push(routeName);
+  }
+
+  @override
+  void replaceAllNamed(String routeName) {
+    _appRouterDelegate._goRouter.go(routeName);
   }
 
   @override

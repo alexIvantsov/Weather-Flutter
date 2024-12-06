@@ -28,6 +28,7 @@ class _GoRouterConfigProvider implements AppRouterConfigProvider {
         path: '/city_weather/:city',
         builder: (context, state) {
           return CityWeatherScreen(
+            key: state.pageKey,
             city: state.pathParameters['city'],
           );
         },
