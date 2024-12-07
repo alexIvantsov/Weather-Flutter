@@ -1,7 +1,7 @@
 import 'dart:math';
 
 class Wind {
-  /// Unit depends on the [MeasurementUnit] in the [Weather] object.
+  /// Unit depends on the [MeasurementUnit] in the [WeatherForecast] object.
   final double speed;
 
   /// The direction of the wind in degrees.
@@ -9,7 +9,7 @@ class Wind {
 
   /// Wind gust.
   ///
-  /// Unit depends on the [MeasurementUnit] in the [Weather] object.
+  /// Unit depends on the [MeasurementUnit] in the [WeatherForecast] object.
   final double gust;
 
   Wind({

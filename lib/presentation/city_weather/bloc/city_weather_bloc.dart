@@ -60,7 +60,6 @@ class CityWeatherBloc extends Bloc<CityWeatherEvent, CityWeatherState> {
     emit(state.copyWith(
       isLoading: false,
       weather: weatherUiModel,
-      city: city,
     ));
   }
 }
