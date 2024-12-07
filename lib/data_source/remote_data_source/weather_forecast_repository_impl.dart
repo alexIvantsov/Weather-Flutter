@@ -47,6 +47,8 @@ class WeatherForecastRepositoryImpl implements WeatherForecastRepository {
           throw UnexpectedException(
               'Failed to get weather forecast. Status code: $code');
       }
+    } on Exception catch (_) {
+      rethrow;
     } catch (e, s) {
       log('Failed to get weather forecast', error: e, stackTrace: s);
       throw UnexpectedException(e.toString());

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/core/extensions/context_extension.dart';
 import 'package:weather/di/injection.dart';
+import 'package:weather/domain/exceptions/not_found_exception.dart';
 import 'package:weather/presentation/city_weather/bloc/city_weather_bloc.dart';
+import 'package:weather/presentation/city_weather/widgets/city_not_found.dart';
+import 'package:weather/presentation/city_weather/widgets/something_went_wrong.dart';
 import 'package:weather/presentation/city_weather/widgets/weather_widget.dart';
 
 class CityWeatherScreen extends StatefulWidget {
@@ -39,7 +42,19 @@ class _CityWeatherScreenState extends State<CityWeatherScreen> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: bloc,
-      child: const CityWeatherView(),
+      child: CityWeatherView(
+        onEnterCity: () {
+          context.appRouter.replaceAllNamed('/enter_city');
+        },
+        onChangeCity: () {
+          context.appRouter.pushNamed('/enter_city');
+        },
+        onRetry: () {
+          final city = bloc.state.city;
+          if (city == null) return;
+          bloc.add(CityWeatherEvent.fetchWeather(city));
+        },
+      ),
     );
   }
 
@@ -51,7 +66,16 @@ class _CityWeatherScreenState extends State<CityWeatherScreen> {
 }
 
 class CityWeatherView extends StatelessWidget {
-  const CityWeatherView({super.key});
+  final VoidCallback onEnterCity;
+  final VoidCallback onChangeCity;
+  final VoidCallback onRetry;
+
+  const CityWeatherView({
+    super.key,
+    required this.onEnterCity,
+    required this.onChangeCity,
+    required this.onRetry,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +84,7 @@ class CityWeatherView extends StatelessWidget {
         child: BlocConsumer<CityWeatherBloc, CityWeatherState>(
           listener: (context, state) {
             if (state.city == null && state.isLoading == false) {
-              context.appRouter.pushReplacementNamed('/enter_city');
+              onEnterCity();
             }
           },
           builder: (context, state) {
@@ -70,6 +94,7 @@ class CityWeatherView extends StatelessWidget {
 
             final city = state.city;
             if (city == null) {
+              // User should be redirected to enter city screen
               return const SizedBox.shrink();
             }
 
@@ -79,6 +104,22 @@ class CityWeatherView extends StatelessWidget {
                 cityName: city,
                 weatherUiModel: weather,
               );
+            }
+
+            final error = state.exception;
+            if (error != null) {
+              if (error is NotFoundException) {
+                return CityNotFound(
+                  city: city,
+                  onChangeCity: onChangeCity,
+                );
+              } else {
+                return SomethingWentWrong(
+                  city: city,
+                  onRetry: onRetry,
+                  onEnterAnotherCity: onChangeCity,
+                );
+              }
             }
 
             return const SizedBox.shrink();

@@ -64,5 +64,16 @@
         "type": "String"
       }
     }
-  }
+  },
+  "cityNotFound": "City \"{city}\" is not found.\nPlease try to enter another one.",
+  "@cityNotFound": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "enterAnotherCity": "Enter another city",
+  "somethingWentWrong": "Something went wrong",
+  "retry": "Retry"
 }
