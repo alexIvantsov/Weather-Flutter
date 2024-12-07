@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather/core/tools.dart';
+import 'package:weather/domain/entity/distance.dart';
 import 'package:weather/domain/entity/measurement_unit.dart';
 import 'package:weather/domain/use_cases/get_saved_city_use_case.dart';
 import 'package:weather/domain/use_cases/get_weather_forecaset_use_case.dart';

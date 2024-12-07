@@ -27,13 +27,13 @@ class WeatherUiModel with _$WeatherUiModel {
     required String temperatureFeelsLike,
     required String minTemperature,
     required String maxTemperature,
-    required String pressure,
+    required String pressureBar,
     required String humidity,
     required String weatherCondition,
     required String weatherConditionDescription,
     required String cloudiness,
     required WindUiModel wind,
-    required String visibility,
+    required DistanceUiModel? visibility,
     required String precipitationProbability,
   }) = _WeatherUiModel;
 }
@@ -45,4 +45,12 @@ class WindUiModel with _$WindUiModel {
     required double radianDirection,
     required String gust,
   }) = _WindUiModel;
+}
+
+@freezed
+class DistanceUiModel with _$DistanceUiModel {
+  const factory DistanceUiModel({
+    required String value,
+    required DistanceUnit unit,
+  }) = _DistanceUiModel;
 }

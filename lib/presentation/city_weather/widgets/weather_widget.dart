@@ -63,7 +63,7 @@ class WeatherWidget extends StatelessWidget {
 
           final additionalInfo = AdditionalParameters(
             padding: isHorizontalLayout ? const EdgeInsets.all(16) : null,
-            pressure: weatherUiModel.pressure,
+            pressure: weatherUiModel.pressureBar,
             humidity: weatherUiModel.humidity,
             cloudiness: weatherUiModel.cloudiness,
             wind: weatherUiModel.wind,

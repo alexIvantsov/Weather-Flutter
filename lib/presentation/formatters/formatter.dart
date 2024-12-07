@@ -1,26 +1,22 @@
 import 'package:intl/intl.dart';
-import 'package:weather/domain/entity/measurement_unit.dart';
 
 class Formatter {
-  final MeasurementUnit _measurementUnit;
-
-  Formatter(this._measurementUnit);
+  final _oneSignNumberFormatter = NumberFormat('0.#');
 
   String formatTemperature(double temperature) {
-    final numberFormat = NumberFormat('0.#');
-    return '${numberFormat.format(temperature)}°';
+    final roundedTemperature = temperature.round();
+    return '${_oneSignNumberFormatter.format(roundedTemperature)}°';
   }
 
-  String formatPressure(int pressure) {
-    return pressure.toString();
+  String formatPressure(double pressure) {
+    return _oneSignNumberFormatter.format(pressure);
   }
 
   String formatPercentage(num percentage) {
     return '$percentage%';
   }
 
-  String formatSpeed(double speed) {
-    final numberFormat = NumberFormat('0.#');
-    return numberFormat.format(speed);
+  String formatDouble(double speed) {
+    return _oneSignNumberFormatter.format(speed);
   }
 }

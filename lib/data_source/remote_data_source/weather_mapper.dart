@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:weather/data_source/models/weather_response.dart';
+import 'package:weather/domain/entity/distance.dart';
 import 'package:weather/domain/entity/measurement_unit.dart';
 import 'package:weather/domain/entity/weather_forecast.dart';
 import 'package:weather/domain/entity/wind.dart';
@@ -33,11 +34,25 @@ class WeatherMapper {
       cloudiness: weatherList.clouds.all,
       wind: Wind(
         speed: weatherList.wind.speed,
-        direction: weatherList.wind.degree,
+        // The API returns the wind degree from 0 to 360,
+        // and it means the direction from which the wind is blowing.
+        // Adding 180 degrees to the wind direction to get the direction
+        // to which the wind is blowing.
+        direction: weatherList.wind.degree + 180,
         gust: weatherList.wind.gust,
       ),
-      visibility: weatherList.visibility,
+      visibility: _visibilityDistance(weatherList.visibility),
       precipitationProbability: weatherList.precipitationProbability,
+    );
+  }
+
+  Distance? _visibilityDistance(int? visibility) {
+    if (visibility == null) {
+      return null;
+    }
+    return Distance(
+      value: visibility,
+      unit: DistanceUnit.meter,
     );
   }
 }

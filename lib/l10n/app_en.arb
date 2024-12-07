@@ -49,7 +49,7 @@
       }
     }
   },
-  "pressureValue": "{value}hPa",
+  "pressureValue": "{value} Bar",
   "@pressureValue": {
     "placeholders": {
       "value": {
@@ -57,8 +57,16 @@
       }
     }
   },
-  "distanceValue": "{value}m",
-  "@distanceValue": {
+  "distanceMetersValue": "{value}m",
+  "@distanceMetersValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "distanceKilometersValue": "{value}km",
+  "@distanceKilometersValue": {
     "placeholders": {
       "value": {
         "type": "String"

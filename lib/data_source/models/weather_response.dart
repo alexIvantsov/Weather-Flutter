@@ -28,7 +28,7 @@ class WeatherDTOList with _$WeatherDTOList {
     @JsonKey(name: 'weather') required List<WeatherDTO> weather,
     @JsonKey(name: 'clouds') required CloudsDTO clouds,
     @JsonKey(name: 'wind') required WindDTO wind,
-    @JsonKey(name: 'visibility') required int visibility,
+    @JsonKey(name: 'visibility') required int? visibility,
     @JsonKey(name: 'pop') required double precipitationProbability,
     @JsonKey(name: 'rain') RainDTO? rain,
     @JsonKey(name: 'sys') SysDTO? sys,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/core/extensions/context_extension.dart';
+import 'package:weather/domain/entity/distance.dart';
 import 'package:weather/gen/assets.gen.dart';
 import 'package:weather/presentation/city_weather/bloc/city_weather_bloc.dart';
 import 'package:weather/presentation/city_weather/widgets/parameter_widget.dart';
@@ -10,7 +11,7 @@ class AdditionalParameters extends StatelessWidget {
   final String humidity;
   final String cloudiness;
   final WindUiModel wind;
-  final String visibility;
+  final DistanceUiModel? visibility;
   final String precipitationProbability;
 
   final int crossAxisCount;
@@ -51,11 +52,12 @@ class AdditionalParameters extends StatelessWidget {
         svgIconAssetPath: Assets.icons.icCloudiness,
       ),
       WindParameterWidget(wind),
-      ParameterWidget(
-        title: context.localizations.visibility,
-        value: context.localizations.distanceValue(visibility),
-        svgIconAssetPath: Assets.icons.icFog,
-      ),
+      if (visibility != null)
+        ParameterWidget(
+          title: context.localizations.visibility,
+          value: _distance(context, visibility!),
+          svgIconAssetPath: Assets.icons.icFog,
+        ),
       ParameterWidget(
         title: context.localizations.precipitationProbability,
         value: precipitationProbability,
@@ -93,5 +95,14 @@ class AdditionalParameters extends StatelessWidget {
         children: parameters,
       );
     }
+  }
+
+  String _distance(BuildContext context, DistanceUiModel distance) {
+    return switch (distance.unit) {
+      DistanceUnit.meter =>
+        context.localizations.distanceMetersValue(distance.value),
+      DistanceUnit.kilometer =>
+        context.localizations.distanceKilometersValue(distance.value),
+    };
   }
 }

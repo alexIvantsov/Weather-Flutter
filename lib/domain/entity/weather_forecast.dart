@@ -1,3 +1,4 @@
+import 'package:weather/domain/entity/distance.dart';
 import 'package:weather/domain/entity/measurement_unit.dart';
 import 'package:weather/domain/entity/wind.dart';
 
@@ -37,7 +38,7 @@ class WeatherForecast {
   final Wind wind;
 
   /// The visibility in meters.
-  final int visibility;
+  final Distance? visibility;
 
   /// The probability of precipitation in percentage.
   ///
@@ -62,4 +63,6 @@ class WeatherForecast {
     required this.visibility,
     required this.precipitationProbability,
   });
+
+  double get pressureBar => pressure / 1000;
 }
