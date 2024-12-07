@@ -37,21 +37,37 @@ class WeatherForecastRepositoryImpl implements WeatherForecastRepository {
         },
       );
       final result = await http.get(uri);
-      final code = result.statusCode;
-      switch (code) {
-        case 200:
-          return _bodyToWeatherForecastList(result.body, measurementUnit);
-        case 404:
-          throw NotFoundException();
-        default:
-          throw UnexpectedException(
-              'Failed to get weather forecast. Status code: $code');
-      }
+
+      return _parseResponse(
+        response: result,
+        parser: (body) => _bodyToWeatherForecastList(body, measurementUnit),
+      );
     } on Exception catch (_) {
       rethrow;
     } catch (e, s) {
       log('Failed to get weather forecast', error: e, stackTrace: s);
       throw UnexpectedException(e.toString());
+    }
+  }
+
+  /// The universal method to parse the response from the server.
+  ///
+  /// Throws [NotFoundException] if the status code is 404.
+  /// Throws [UnexpectedException] if the status code is not 200 or 404.
+  T _parseResponse<T>({
+    required http.Response response,
+    required T Function(String) parser,
+  }) {
+    final code = response.statusCode;
+    switch (code) {
+      case 200:
+        return parser(response.body);
+      case 404:
+        throw NotFoundException();
+      default:
+        throw UnexpectedException(
+          'Status code: $code. Body: ${response.body}',
+        );
     }
   }
 

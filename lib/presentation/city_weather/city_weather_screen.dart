@@ -122,6 +122,7 @@ class CityWeatherView extends StatelessWidget {
               }
             }
 
+            // This state should not be reached
             return const SizedBox.shrink();
           },
         ),

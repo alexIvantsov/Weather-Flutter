@@ -20,7 +20,14 @@ class WeatherWidget extends StatelessWidget {
   static const _horizontalLeftFlex = 3;
   static const _horizontalRightFlex = 4;
   static const _horizontalSpacing = 16.0;
+
+  /// The maximum width of the widget in portrait mode.
+  ///
+  /// If the width is greater than this value,
+  /// the [_HorizontalLayout] will be used, otherwise the [_VerticalLayout].
   static const _phonePortraitMaxWidth = 600.0;
+  static const _maxCityButtonWidth = 600.0;
+  static const _minWeatherParameterWidth = 160.0;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +46,11 @@ class WeatherWidget extends StatelessWidget {
               ? constraints.maxWidth - paramsWidth - _horizontalSpacing
               : constraints.maxWidth;
 
-          final paramsCrossAxisCount =
+          final paramsCountInTheRow =
               calculateParamsItemsCountInRow(paramsWidth);
 
           final city = ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 600),
+            constraints: const BoxConstraints(maxWidth: _maxCityButtonWidth),
             child: CityButton(
               city: cityName,
               onPressed: () => _onCityButtonPressed(context),
@@ -69,7 +76,7 @@ class WeatherWidget extends StatelessWidget {
             wind: weatherUiModel.wind,
             visibility: weatherUiModel.visibility,
             precipitationProbability: weatherUiModel.precipitationProbability,
-            crossAxisCount: paramsCrossAxisCount,
+            itemsCountInTheRow: paramsCountInTheRow,
             width: paramsWidth,
             scrollable: isHorizontalLayout,
           );
@@ -106,12 +113,11 @@ class WeatherWidget extends StatelessWidget {
   }
 
   int calculateParamsItemsCountInRow(double paramsWidth) {
-    var paramsCrossAxisCount = paramsWidth ~/ 160;
-    if (paramsWidth > 300) {
+    var paramsCrossAxisCount = paramsWidth ~/ _minWeatherParameterWidth;
+    if (paramsWidth > _phonePortraitMaxWidth / 2) {
       paramsCrossAxisCount = max(paramsCrossAxisCount, 2);
     }
-    paramsCrossAxisCount = max(paramsCrossAxisCount, 1);
-    return paramsCrossAxisCount;
+    return max(paramsCrossAxisCount, 1);
   }
 
   double calculateParamsViewWidthInHorizontalLayout(double widthConstraint) {

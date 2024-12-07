@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:weather/core/extensions/context_extension.dart';
 
+/// Represents the state when something went wrong.
+///
+/// There is an ability to retry or enter another city.
 class SomethingWentWrong extends StatelessWidget {
   final String city;
   final VoidCallback onRetry;

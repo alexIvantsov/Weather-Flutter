@@ -6,6 +6,15 @@ import 'package:weather/presentation/city_weather/bloc/city_weather_bloc.dart';
 import 'package:weather/presentation/city_weather/widgets/parameter_widget.dart';
 import 'package:weather/presentation/core/common_widgets/not_scrollable_grid_view.dart';
 
+/// Represents the additional parameters of the weather forecast.
+///
+/// The parameters are:
+/// - Pressure
+/// - Humidity
+/// - Cloudiness
+/// - Wind
+/// - Visibility
+/// - Precipitation probability
 class AdditionalParameters extends StatelessWidget {
   final String pressure;
   final String humidity;
@@ -14,10 +23,24 @@ class AdditionalParameters extends StatelessWidget {
   final DistanceUiModel? visibility;
   final String precipitationProbability;
 
-  final int crossAxisCount;
+  /// How many items should be in the row.
+  final int itemsCountInTheRow;
+
+  /// The width of the widget.
+  ///
+  /// If [scrollable] is false, the width must be provided,
+  /// to calculate the items size.
   final double? width;
+
+  /// Whether the widget should be scrollable.
+  ///
+  /// If false, the content will be displayed in a "grid" like view,
+  /// it can be wrapped in a [SingleChildScrollView] to make it scrollable.
   final bool scrollable;
   final EdgeInsets? padding;
+
+  final double itemsSpacing;
+  final double itemAspectRatio;
 
   const AdditionalParameters({
     super.key,
@@ -27,10 +50,12 @@ class AdditionalParameters extends StatelessWidget {
     required this.wind,
     required this.visibility,
     required this.precipitationProbability,
-    required this.crossAxisCount,
+    required this.itemsCountInTheRow,
     this.width,
     this.padding,
     required this.scrollable,
+    this.itemsSpacing = 8,
+    this.itemAspectRatio = 1.35,
   }) : assert(!scrollable || (scrollable && width != null));
 
   @override
@@ -68,10 +93,10 @@ class AdditionalParameters extends StatelessWidget {
     if (scrollable) {
       final gridView = GridView.count(
         padding: padding,
-        crossAxisCount: crossAxisCount,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
-        childAspectRatio: 1.35,
+        crossAxisCount: itemsCountInTheRow,
+        mainAxisSpacing: itemsSpacing,
+        crossAxisSpacing: itemsSpacing,
+        childAspectRatio: itemAspectRatio,
         children: parameters,
       );
       if (width == null) {
@@ -88,10 +113,10 @@ class AdditionalParameters extends StatelessWidget {
       return NotScrollableGridView(
         padding: padding,
         width: width!,
-        crossAxisCount: crossAxisCount,
-        mainAxisSpacing: 8,
-        crossAxisSpacing: 8,
-        childAspectRatio: 1.35,
+        crossAxisCount: itemsCountInTheRow,
+        mainAxisSpacing: itemsSpacing,
+        crossAxisSpacing: itemsSpacing,
+        childAspectRatio: itemAspectRatio,
         children: parameters,
       );
     }

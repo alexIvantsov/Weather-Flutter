@@ -1,3 +1,6 @@
+/// Weather icons types used by OpenWeatherMap API.
+///
+/// See https://openweathermap.org/weather-conditions for more info.
 enum WeatherIconType {
   clearSkyDay("01d"),
   clearSkyNight("01n"),

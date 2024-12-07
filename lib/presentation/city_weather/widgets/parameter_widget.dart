@@ -3,8 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather/core/extensions/context_extension.dart';
 import 'package:weather/gen/assets.gen.dart';
 import 'package:weather/presentation/city_weather/bloc/city_weather_bloc.dart';
-import 'package:weather/presentation/city_weather/widgets/compas.dart';
+import 'package:weather/presentation/core/common_widgets/compas.dart';
 
+/// Widget which represents weather parameter (like pressure, humidity, etc.).
 class ParameterWidget extends StatelessWidget {
   final String title;
   final String value;
@@ -98,7 +99,7 @@ class _Value extends StatelessWidget {
         maxLines: 1,
         style: context.theme.textTheme.headlineLarge?.copyWith(
           fontSize: 42,
-          color: context.theme.colorScheme.onTertiaryContainer,
+          color: context.theme.colorScheme.secondary,
         ),
       ),
     );
@@ -141,6 +142,10 @@ class _Header extends StatelessWidget {
           svgIconAssetPath,
           width: 24,
           height: 24,
+          colorFilter: ColorFilter.mode(
+            context.theme.colorScheme.onTertiaryContainer,
+            BlendMode.srcIn,
+          ),
         ),
         const SizedBox(width: 10),
         Expanded(

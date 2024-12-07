@@ -5,6 +5,14 @@ import 'package:weather/domain/entity/measurement_unit.dart';
 import 'package:weather/domain/entity/weather_condition.dart';
 import 'package:weather/gen/assets.gen.dart';
 
+/// The widget with the main weather information.
+///
+/// The widget displays:
+/// - weather condition icon,
+/// - description,
+/// - temperature,
+/// - feels like temperature,
+/// - min and max temperature.
 class MainInfo extends StatelessWidget {
   final String weatherDescription;
   final WeatherCondition weatherCondition;
@@ -16,7 +24,13 @@ class MainInfo extends StatelessWidget {
 
   final double horizontalConstraint;
 
+  /// The width of the widget when the horizontal layout is used.
+  ///
+  /// If the available width is less than this value,
+  /// the [_VerticalLayout] will be used, otherwise the [_HorizontalLayout].
   static const _minHorizontalViewWidth = 300.0;
+
+  /// The maximum width of the widget.
   static const _maxViewWidth = 400.0;
 
   const MainInfo({
@@ -33,40 +47,44 @@ class MainInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mainPart = Column(
+    final weatherCondition = Row(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SvgPicture.asset(
-              _conditionIconAssetPath(),
-              width: 32,
-              height: 32,
-            ),
-            const SizedBox(width: 8),
-            Text(weatherDescription),
-          ],
+        SvgPicture.asset(
+          _conditionIconAssetPath(),
+          width: 32,
+          height: 32,
         ),
-        Text(
-          temperature,
-          style: context.theme.textTheme.headlineLarge?.copyWith(
-            fontSize: 74,
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            weatherDescription,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: context.theme.textTheme.titleLarge?.copyWith(
+              color: context.theme.colorScheme.onPrimaryContainer,
+            ),
           ),
         ),
       ],
     );
 
-    final additionalPart = Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    final temperatureValue = Text(
+      temperature,
+      style: context.theme.textTheme.headlineLarge?.copyWith(
+        fontSize: 74,
+      ),
+    );
+
+    final additionalTemperatureValues = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(context.localizations.min(minTemperature)),
+        _AdditionalItem(context.localizations.min(minTemperature)),
         const SizedBox(height: 8),
-        Text(context.localizations.max(maxTemperature)),
+        _AdditionalItem(context.localizations.max(maxTemperature)),
         const SizedBox(height: 8),
-        Text(context.localizations.feelsLike(feelsLikeTemperature)),
+        _AdditionalItem(context.localizations.feelsLike(feelsLikeTemperature)),
       ],
     );
 
@@ -75,13 +93,13 @@ class MainInfo extends StatelessWidget {
     final Widget layout;
     if (isHorizontalLayout) {
       layout = _HorizontalLayout(
-        main: mainPart,
-        additional: additionalPart,
+        main: temperatureValue,
+        additional: additionalTemperatureValues,
       );
     } else {
       layout = _VerticalLayout(
-        main: mainPart,
-        additional: additionalPart,
+        main: temperatureValue,
+        additional: additionalTemperatureValues,
       );
     }
 
@@ -95,7 +113,14 @@ class MainInfo extends StatelessWidget {
         color: context.theme.colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(24),
       ),
-      child: layout,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          weatherCondition,
+          const SizedBox(height: 8),
+          layout,
+        ],
+      ),
     );
   }
 
@@ -109,6 +134,22 @@ class MainInfo extends StatelessWidget {
       WeatherCondition.mist => Assets.icons.icMist,
       WeatherCondition.thunderstorm => Assets.icons.icThunderstorm,
     };
+  }
+}
+
+class _AdditionalItem extends StatelessWidget {
+  final String value;
+
+  const _AdditionalItem(this.value);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      value,
+      style: context.theme.textTheme.bodyMedium?.copyWith(
+        color: context.theme.colorScheme.secondary,
+      ),
+    );
   }
 }
 
@@ -126,7 +167,7 @@ class _HorizontalLayout extends StatelessWidget {
     return Row(
       children: [
         Expanded(child: main),
-        Expanded(child: additional),
+        Expanded(child: Center(child: additional)),
       ],
     );
   }

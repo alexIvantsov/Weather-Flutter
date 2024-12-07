@@ -9,6 +9,7 @@ import 'package:weather/domain/entity/wind.dart';
 
 @lazySingleton
 class WeatherMapper {
+  /// Maps the [WeatherResponse] to a list of [WeatherForecast] entities.
   List<WeatherForecast> mapToWeatherForecastList({
     required WeatherResponse response,
     required MeasurementUnit measurementUnit,

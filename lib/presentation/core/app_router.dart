@@ -6,7 +6,7 @@ import 'package:weather/presentation/enter_city/enter_city_screen.dart';
 
 part 'app_router_config_provider.dart';
 
-/// Provider to provide [AppRouter] to the widget tree
+/// Provides [AppRouter] for the widget tree
 class AppRouterProvider extends InheritedWidget {
   final AppRouter appRouter;
 

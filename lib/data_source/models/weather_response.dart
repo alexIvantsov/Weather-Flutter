@@ -6,6 +6,9 @@ part 'weather_response.g.dart';
 
 //ignore_for_file: invalid_annotation_target
 
+/// OpenWeatherMap API response model
+///
+/// See https://openweathermap.org/forecast5#geocoding for more info.
 @freezed
 class WeatherResponse with _$WeatherResponse {
   const factory WeatherResponse({
@@ -108,8 +111,7 @@ class SysDTO with _$SysDTO {
     @JsonKey(name: 'pod') required String pod,
   }) = _SysDTO;
 
-  factory SysDTO.fromJson(Map<String, dynamic> json) =>
-      _$SysDTOFromJson(json);
+  factory SysDTO.fromJson(Map<String, dynamic> json) => _$SysDTOFromJson(json);
 }
 
 @freezed

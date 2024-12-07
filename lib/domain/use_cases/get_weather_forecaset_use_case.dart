@@ -6,6 +6,11 @@ import 'package:weather/domain/exceptions/not_found_exception.dart';
 import 'package:weather/domain/repositories/settings_repository.dart';
 import 'package:weather/domain/repositories/weather_forecast_repository.dart';
 
+/// Use case to get the weather forecast for the given [cityName].
+///
+/// If the forecast is not found, [NotFoundException] is thrown.
+/// If the forecast is found, the city is saved to the settings,
+/// so that it can be used as default city on the next app launch.
 @injectable
 class GetWeatherForecastUseCase {
   final WeatherForecastRepository _weatherRepository;

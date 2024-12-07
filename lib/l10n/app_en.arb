@@ -2,7 +2,7 @@
   "@@locale": "en",
   "enterCityName": "Enter city name",
   "search": "Search",
-  "feelsLike": "Feels like {temp}",
+  "feelsLike": "Feels like: {temp}",
   "@feelsLike": {
     "placeholders": {
       "temp": {

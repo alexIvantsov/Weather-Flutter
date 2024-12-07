@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:weather/core/extensions/context_extension.dart';
 
+/// Button with the current city name.
+///
+/// Used to change the city by redirecting to the screen where the user can
+/// enter the city name.
 class CityButton extends StatelessWidget {
   final String city;
   final VoidCallback onPressed;
@@ -16,11 +20,11 @@ class CityButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: context.theme.colorScheme.tertiaryContainer,
-        foregroundColor: context.theme.colorScheme.onTertiaryContainer,
+        backgroundColor: context.theme.colorScheme.secondaryFixedDim,
+        foregroundColor: context.theme.colorScheme.onSecondaryFixedVariant,
         padding: const EdgeInsets.all(12),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(32),
         ),
       ),
       child: Row(
@@ -32,7 +36,12 @@ class CityButton extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          Text(city),
+          Text(
+            city,
+            style: context.theme.textTheme.titleLarge?.copyWith(
+              color: context.theme.colorScheme.onSecondaryFixedVariant,
+            ),
+          ),
           const SizedBox(width: 8),
           const Spacer(),
         ],

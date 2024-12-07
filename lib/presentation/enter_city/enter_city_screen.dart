@@ -17,6 +17,10 @@ class _EnterCityScreenState extends State<EnterCityScreen> {
 
   bool isButtonEnabled = false;
 
+  static const _smallHeightThreshold = 250;
+  static const _maxWidthWithButton = 450.0;
+  static const _maxWidthWithoutButton = 400.0;
+
   @override
   void initState() {
     controller.addListener(textControllerListener);
@@ -28,7 +32,7 @@ class _EnterCityScreenState extends State<EnterCityScreen> {
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
-          final isSmallHeight = constraints.maxHeight < 200;
+          final isSmallHeight = constraints.maxHeight < _smallHeightThreshold;
           return SingleChildScrollView(
             child: IntrinsicHeight(
               child: Center(
@@ -36,7 +40,9 @@ class _EnterCityScreenState extends State<EnterCityScreen> {
                   constraints: BoxConstraints(
                     // If the height is small, the width should be bigger
                     // because the button will be in the same row as the text field.
-                    maxWidth: isSmallHeight ? 450 : 400,
+                    maxWidth: isSmallHeight
+                        ? _maxWidthWithButton
+                        : _maxWidthWithoutButton,
                     minHeight: constraints.maxHeight,
                   ),
                   padding: const EdgeInsets.all(16),
@@ -161,7 +167,7 @@ class _SearchButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        minimumSize: const Size(0, 48),
+        minimumSize: const Size(0, 54),
         padding: const EdgeInsets.symmetric(horizontal: 12),
       ),
       onPressed: onTap,

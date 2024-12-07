@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:weather/core/extensions/context_extension.dart';
 
+/// Represents the state when the entered city was not found.
+///
+/// There is an ability to change the city in this case.
 class CityNotFound extends StatelessWidget {
   final String city;
   final VoidCallback onChangeCity;
+  final double maxWidth;
 
   const CityNotFound({
     super.key,
     required this.city,
     required this.onChangeCity,
+    this.maxWidth = 300,
   });
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          maxWidth: 300,
-        ),
+        constraints: BoxConstraints(maxWidth: maxWidth),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,3 +1,8 @@
+/// Represents distance using [value] and [unit].
+///
+/// Example:
+/// 1 kilometer
+/// 100 meters
 class Distance {
   final num value;
   final DistanceUnit unit;

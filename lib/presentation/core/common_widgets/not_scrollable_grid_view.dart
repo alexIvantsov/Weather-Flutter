@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Builds a GridView that is not scrollable and doesn't use layout builder.
+/// Builds a GridView that is not scrollable and doesn't use [LayoutBuilder].
 ///
 /// It can be used within a IntrinsicsHeight widget, [GridView] widget can't be.
 class NotScrollableGridView extends StatelessWidget {
