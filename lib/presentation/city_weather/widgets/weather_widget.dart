@@ -51,8 +51,8 @@ class WeatherWidget extends StatelessWidget {
           );
 
           final mainInfo = MainInfo(
-            description: weatherUiModel.weatherConditionDescription,
-            type: weatherUiModel.weatherCondition,
+            weatherDescription: weatherUiModel.weatherConditionDescription,
+            weatherCondition: weatherUiModel.weatherCondition,
             measurementUnit: weatherUiModel.measurementUnit,
             temperature: weatherUiModel.temperature,
             feelsLikeTemperature: weatherUiModel.temperatureFeelsLike,

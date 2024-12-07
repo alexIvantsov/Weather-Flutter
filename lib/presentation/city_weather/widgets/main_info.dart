@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:weather/core/extensions/context_extension.dart';
 import 'package:weather/domain/entity/measurement_unit.dart';
+import 'package:weather/domain/entity/weather_condition.dart';
+import 'package:weather/gen/assets.gen.dart';
 
 class MainInfo extends StatelessWidget {
-  final String description;
-  final String type;
+  final String weatherDescription;
+  final WeatherCondition weatherCondition;
   final MeasurementUnit measurementUnit;
   final String temperature;
   final String feelsLikeTemperature;
@@ -23,8 +26,8 @@ class MainInfo extends StatelessWidget {
     required this.feelsLikeTemperature,
     required this.minTemperature,
     required this.maxTemperature,
-    required this.description,
-    required this.type,
+    required this.weatherDescription,
+    required this.weatherCondition,
     required this.horizontalConstraint,
   });
 
@@ -37,9 +40,13 @@ class MainInfo extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.sunny),
+            SvgPicture.asset(
+              _conditionIconAssetPath(),
+              width: 32,
+              height: 32,
+            ),
             const SizedBox(width: 8),
-            Text(description),
+            Text(weatherDescription),
           ],
         ),
         Text(
@@ -90,6 +97,18 @@ class MainInfo extends StatelessWidget {
       ),
       child: layout,
     );
+  }
+
+  String _conditionIconAssetPath() {
+    return switch (weatherCondition) {
+      WeatherCondition.clear => Assets.icons.icClearSky,
+      WeatherCondition.cloudy => Assets.icons.icFewClouds,
+      WeatherCondition.scatteredClouds => Assets.icons.icScatteredClouds,
+      WeatherCondition.rain => Assets.icons.icRain,
+      WeatherCondition.snow => Assets.icons.icSnow,
+      WeatherCondition.mist => Assets.icons.icMist,
+      WeatherCondition.thunderstorm => Assets.icons.icThunderstorm,
+    };
   }
 }
 

@@ -1,7 +1,9 @@
 import 'package:injectable/injectable.dart';
+import 'package:weather/data_source/models/weather_icon_type.dart';
 import 'package:weather/data_source/models/weather_response.dart';
 import 'package:weather/domain/entity/distance.dart';
 import 'package:weather/domain/entity/measurement_unit.dart';
+import 'package:weather/domain/entity/weather_condition.dart';
 import 'package:weather/domain/entity/weather_forecast.dart';
 import 'package:weather/domain/entity/wind.dart';
 
@@ -29,7 +31,8 @@ class WeatherMapper {
       maxTemperature: weatherList.main.maxTemperature,
       pressure: weatherList.main.pressure,
       humidity: weatherList.main.humidity,
-      weatherCondition: weatherList.weather.first.main,
+      weatherCondition:
+          _weatherConditionFromIcon(weatherList.weather.first.icon),
       weatherConditionDescription: weatherList.weather.first.description,
       cloudiness: weatherList.clouds.all,
       wind: Wind(
@@ -54,5 +57,36 @@ class WeatherMapper {
       value: visibility,
       unit: DistanceUnit.meter,
     );
+  }
+
+  WeatherCondition _weatherConditionFromIcon(String weatherIcon) {
+    final iconType = WeatherIconType.fromValue(weatherIcon);
+    switch (iconType) {
+      case WeatherIconType.clearSkyDay:
+      case WeatherIconType.clearSkyNight:
+        return WeatherCondition.clear;
+      case WeatherIconType.fewCloudsDay:
+      case WeatherIconType.fewCloudsNight:
+      case WeatherIconType.brokenCloudsDay:
+      case WeatherIconType.brokenCloudsNight:
+        return WeatherCondition.cloudy;
+      case WeatherIconType.scatteredCloudsDay:
+      case WeatherIconType.scatteredCloudsNight:
+        return WeatherCondition.scatteredClouds;
+      case WeatherIconType.showerRainDay:
+      case WeatherIconType.showerRainNight:
+      case WeatherIconType.rainDay:
+      case WeatherIconType.rainNight:
+        return WeatherCondition.rain;
+      case WeatherIconType.thunderstormDay:
+      case WeatherIconType.thunderstormNight:
+        return WeatherCondition.thunderstorm;
+      case WeatherIconType.snowDay:
+      case WeatherIconType.snowNight:
+        return WeatherCondition.snow;
+      case WeatherIconType.mistDay:
+      case WeatherIconType.mistNight:
+        return WeatherCondition.mist;
+    }
   }
 }

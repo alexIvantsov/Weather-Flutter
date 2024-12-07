@@ -29,7 +29,7 @@ class WeatherUiModel with _$WeatherUiModel {
     required String maxTemperature,
     required String pressureBar,
     required String humidity,
-    required String weatherCondition,
+    required WeatherCondition weatherCondition,
     required String weatherConditionDescription,
     required String cloudiness,
     required WindUiModel wind,

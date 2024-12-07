@@ -1,5 +1,6 @@
 import 'package:weather/domain/entity/distance.dart';
 import 'package:weather/domain/entity/measurement_unit.dart';
+import 'package:weather/domain/entity/weather_condition.dart';
 import 'package:weather/domain/entity/wind.dart';
 
 class WeatherForecast {
@@ -27,7 +28,7 @@ class WeatherForecast {
   final int humidity;
 
   /// The weather condition like Rain, Snow, Clouds etc.
-  final String weatherCondition;
+  final WeatherCondition weatherCondition;
 
   /// The weather condition description like light rain, heavy snow etc.
   final String weatherConditionDescription;

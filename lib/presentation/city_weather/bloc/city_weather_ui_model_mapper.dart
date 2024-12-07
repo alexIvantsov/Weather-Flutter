@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:weather/core/extensions/string_extension.dart';
 import 'package:weather/domain/entity/distance.dart';
 import 'package:weather/domain/entity/weather_forecast.dart';
 import 'package:weather/presentation/city_weather/bloc/city_weather_bloc.dart';
@@ -21,7 +22,8 @@ class CityWeatherUiModelMapper {
       pressureBar: _formatter.formatPressure(weather.pressureBar),
       humidity: _formatter.formatPercentage(weather.humidity),
       weatherCondition: weather.weatherCondition,
-      weatherConditionDescription: weather.weatherConditionDescription,
+      weatherConditionDescription:
+          weather.weatherConditionDescription.capitalize(),
       cloudiness: _formatter.formatPercentage(weather.cloudiness),
       wind: WindUiModel(
         speed: _formatter.formatDouble(weather.wind.speed),
@@ -52,6 +54,4 @@ class CityWeatherUiModelMapper {
       unit: distance.unit,
     );
   }
-
-
 }
